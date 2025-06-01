@@ -1,16 +1,18 @@
+version: '3.9'
+
 services:
   pop-node:
+    environment:
+     - POP_CONFIG_PATH=/root/pipe/config.json
+     - POP_INVITE_CODE=YTOUR_CODE
     build: .
     container_name: pop-node
     restart: always
-    environment:
-      - POP_CONFIG_PATH=/root/pipe/config.json
-      - POP_INVITE_CODE=YOUR_INVITE_CODE
     ports:
       - "443:443"
       - "80:80"
     volumes:
-      - ./pipe:/root/pipe
+      - /root/pop-data:/root/pipe
       - ./start.sh:/start.sh
     healthcheck:
       test: ["CMD", "curl", "--fail", "http://localhost/health"]
